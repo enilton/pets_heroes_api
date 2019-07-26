@@ -26,6 +26,17 @@ class PetController{
             }
         })
     }
+    getimages(req,res){
+        const id = req.params.id;
+        model.getImages(id, (result)=>{
+            if(result.length == 0){
+                res.send("Não há resultados para esta consulta")
+            }
+            else{
+                res.send(result);
+            }
+        });
+    }
     post(req, res){
         const pet = {
             id_usuario: req.body.usuario,
@@ -37,13 +48,17 @@ class PetController{
             descricao: req.body.descricao,
             status: req.body.status,
         }
-        const img = req.files;
-        //console.log(req.files);
+        const fotos = req.files;
+        console.log(req.files);
         model.setDados(pet,(result)=>{
             if(result){
-                for(let i; i<= img.length; i++){
-                    let imagem = img[i].filename;
-                    model.setImagens(imagem,(result)=>{
+                const id = result;
+                for(let foto of fotos){
+                    let dados = {
+                        id_pet : id,
+                        img_pet : foto.filename
+                    }
+                    model.setImagens(dados,(result)=>{
                         if(!result){
                             throw Error; 
                         }
