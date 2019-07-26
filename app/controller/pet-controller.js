@@ -16,7 +16,7 @@ class PetController{
     }
     
     getone(req, res){
-        const id = req.params.id_pet;
+        const id = req.params.id;
         model.getOne(id,(result)=>{
             if(result.length == 0){
                 res.send("Não há resultados para esta consulta")
@@ -69,7 +69,7 @@ class PetController{
             descricao: req.body.descricao,
             status: req.body.status,
         }
-        const id_pet = req.params.id_pet;
+        const id_pet = req.params.id;
         model.putDados(pet, id_pet, (result)=>{
             if(result){
                 res.send(pet);
@@ -82,7 +82,7 @@ class PetController{
     
     
     delete(req, res){
-        const id = req.params.id_pet;
+        const id = req.params.id;
         model.delete(id, (result)=>{
             if(result){
                 res.send(result);

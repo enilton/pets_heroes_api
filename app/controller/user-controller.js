@@ -16,7 +16,8 @@ class UserController{
     }
     
     getone(req, res){
-        const id = req.params.id_usuario;
+        const id = req.params.id;
+
         model.getOne(id,(result)=>{
             if(result.length == 0){
                 res.send("Não há resultados para esta consulta")
@@ -40,7 +41,7 @@ class UserController{
            wtsp: req.body.wtsp
 
         }
-        console.log(req.files.filename);
+        console.log(req.file.filename);
         model.setDados(usuario,(result)=>{
             if(result){
                 res.send(usuario);
@@ -65,7 +66,7 @@ class UserController{
             instg: req.body.instg,
             wtsp: req.body.wtsp
          }
-        const id = req.params.id_usuario;
+        const id = req.params.id;
         model.putDados(usuario, id, (result)=>{
             if(result){
                 res.send(usuario);
@@ -78,7 +79,7 @@ class UserController{
     
     
     delete(req, res){
-        const id = req.params.id_usuario;
+        const id = req.params.id;
         model.delete(id, (result)=>{
             if(result){
                 res.send(result);
