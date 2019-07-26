@@ -62,6 +62,18 @@ class Model{
             }
         })
     }
+    validaEmail(email, callback){
+        connect.query('SELECT * FROM usuario WHERE email = ?', email, (err, rows) => {
+            if (err) {
+                console.log(err)
+                return callback(err);
+            }
+            else {
+                console.log("Sucesso!");
+                return callback(rows);
+            }
+        });
+    }
 }
 
 module.exports = Model

@@ -89,6 +89,25 @@ class UserController{
             }
         });
     }
+    login(req,res){
+            const email = req.body.email;
+            const senha = req.body.senha;
+        model.validaEmail(email, (result)=>{
+            if(result.length == 0){
+                res.status(404).send({ error: 'email não cadastrado' });
+            }
+            else{
+                if(result[0].senha != senha){
+                    res.status(401).send({ error: 'Senha inválida' });
+                }
+                else{
+                    res.status(200).send("Login Sucess");
+                }  
+            }
+           
+            
+        })
+    }
     
 }
 module.exports = UserController

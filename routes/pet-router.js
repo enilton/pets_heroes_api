@@ -3,12 +3,13 @@ const controller = new Controller();
 const express = require("express");
 const pets = express.Router();
 const multer = require('multer');
+const uuid = require('uuid/v1');
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, "./public/uploads");
+        cb(null, "./public/uploads/pets");
     },
     filename: function(req, file, cb){
-        cb(null, file.originalname);
+        cb(null, Date.now()+file.originalname);
     }
 });
 const upload = multer({ storage : storage });
