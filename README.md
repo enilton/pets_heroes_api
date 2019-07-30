@@ -9,20 +9,20 @@
     <li><a href="#mensagens" >CRUD Mensagens</a></li>
 </ul>
 <div id="usuarios">
-<h3>Usuários</h3>
+<h3>Usuários(criado)</h3>
 <p>Programa deve permitir cadastro, alteração, exclusão e listagem de usuarios. Os dados recebidos do front: email(Obrigatório), senha, nome(obrigatório), telefone, imagem, status("A"-ativo, "P"-pendente, "I"-inativo), tipo("P"-pessoa, "I"-instituição), link-facebbok, link-instagram, whatsapp. </p>
 <p>A senha não é obrigatória porque futuramente será possível autenticar com google ou facebook.</p>
 <p>No arquivo pets.sql disponível no repositório é possível visualizar os campos da tabela e seus determinados tipos.</p>
 </div>
 
 <div id="endereco">
-<h3>Endereço</h3>
+<h3>Endereço(criado)</h3>
 <p>Programa deve permitir cadastro, alteração, exclusão e listagem de endereços. Os dados recebidos do front: 
 id do usuario(obrigatório), rua(obrigatório), numero(obrigatório), bairro(obrigatório), cidade(obrigatório), estado(obrigatório). </p>
 <p>No arquivo pets.sql disponível no repositório é possível visualizar os campos da tabela e seus determinados tipos.</p>
 </div>
 <div id="pets">
-<h3>Pets</h3>
+<h3>Pets(criado)</h3>
 <p>Programa deve permitir cadastro, alteração, exclusão e listagem de pets. Os dados recebidos do front: 
 id do usuario(obrigatório), nome do pet(obrigatório), id do endereco(obrigatório), idade do pet (obrigatório), especie(obrigatório), porte(obrigatório), descricao (obrigatório), status("D"-disponível, "A"-adotado, "P"- perdido, "E"- encontrado)  </p>
 <p>O cadastro dos pets deve permitir a inclusão de fotos que serão gravadas em outra tabela, cada imagem deve ser gravada com o id do pet e uma flag para definir a foto do perfil</p>
@@ -40,3 +40,4 @@ id do usuario(obrigatório), id do endereco(obrigatório), data(obrigatório), t
 id do pet(obrigatório), id do doador(obrigatório)-Usuario que cadastrou o pet, id do adotante(obrigatório)- Usuario interessado em adotar, mensagem(obrigatório)</p>
 <p>No arquivo pets.sql disponível no repositório é possível visualizar os campos da tabela e seus determinados tipos.</p>
 </div>
+<p>*Observação: Seguir o padrão de desenvolvimento usado nas funcionalidades que já foram implementadas</p>
