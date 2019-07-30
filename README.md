@@ -34,3 +34,9 @@ id do usuario(obrigatório), nome do pet(obrigatório), id do endereco(obrigató
 id do usuario(obrigatório), id do endereco(obrigatório), data(obrigatório), titulo(obrigatório), descrição(obrigatório), imagem(obrigatório). </p>
 <p>No arquivo pets.sql disponível no repositório é possível visualizar os campos da tabela e seus determinados tipos.</p>
 </div>
+<div id="mensagens">
+<h3>Mensagens</h3>
+<p>Programa deve permitir cadastro, alteração, exclusão e listagem de mensagens. Os dados recebidos do front: 
+id do pet(obrigatório), id do doador(obrigatório)-Usuario que cadastrou o pet, id do adotante(obrigatório)- Usuario interessado em adotar, mensagem(obrigatório)</p>
+<p>No arquivo pets.sql disponível no repositório é possível visualizar os campos da tabela e seus determinados tipos.</p>
+</div>
