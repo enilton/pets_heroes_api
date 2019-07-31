@@ -41,3 +41,6 @@ id do pet(obrigatório), id do doador(obrigatório)-Usuario que cadastrou o pet,
 <p>No arquivo pets.sql disponível no repositório é possível visualizar os campos da tabela e seus determinados tipos.</p>
 </div>
 <p>*Observação: Seguir o padrão de desenvolvimento usado nas funcionalidades que já foram implementadas</p>
+
+<h2>Passo a passo de como contribuir com o projeto</h2>
+<a href="https://github.com/CodeSolidario/pets_heroes_api/blob/master/CONTRIBUITION.md"> CONTRIBUITION.md </a>
