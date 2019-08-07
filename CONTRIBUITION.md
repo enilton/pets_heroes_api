@@ -12,4 +12,4 @@
 <li>Ao terminar o seu código, faça os commits </li>
 <li>Suba as alterações para o seu fork, com git push origin <nome-da-sua-branch></li>
 <li>Envie um pull request no repositório https://github.com/CodeSolidario/pets_heroes_api, na branch develop</li>
-<li> Aguarde sua feature ser adicionada </li>
+<li> Aguarde sua feature ser adicionada. </li>
