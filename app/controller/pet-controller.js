@@ -5,7 +5,8 @@ const model = new Model();
 class PetController{
     get(req, res){
         model.getAll((result)=>{
-            if(result.length == 0){
+            console.log(result.rows);
+            if(result.rowCount == 0){
                 res.send("Não há resultados para esta consulta")
             }
             else{
