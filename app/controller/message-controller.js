@@ -1,8 +1,8 @@
-const Model = require("../model/end-model");
+const Model = require("../model/message-model");
 const model = new Model();
 
 
-class EnderecoController{
+class MessageController{
     get(req, res){
         model.getAll((result)=>{
             if(result.length == 0){
@@ -28,17 +28,15 @@ class EnderecoController{
         })
     }
     post(req, res){
-        const endereco = {
-           id_usuario: req.body.id_usuario,
-           rua: req.body.rua,
-           num: req.body.num,
-           bairro: req.body.bairro,
-           cidade: req.body.cidade,
-           estado: req.body.estado
+        const mensagem = {
+           id_pet : req.body.id_pet,
+           id_doador: req.body.id_doador,
+           id_adotante: req.body.id_adotante,
+           mensagem: req.body.mensagem
         }
-        model.setDados(endereco,(result)=>{
+        model.setDados(mensagem,(result)=>{
             if(result){
-                res.send(endereco);
+                res.send(mensagem);
             }
             else{
                 throw Error;
@@ -48,18 +46,16 @@ class EnderecoController{
     }
     
     put(req, res){
-        const endereco = {
-            id_usuario: req.body.id_usuario,
-           rua: req.body.rua,
-           num: req.body.num,
-           bairro: req.body.bairro,
-           cidade: req.body.cidade,
-           estado: req.body.estado
+        const mensagem = {
+            id_pet : req.body.id_pet,
+            id_doador: req.body.id_doador,
+            id_adotante: req.body.id_adotante,
+            mensagem: req.body.mensagem
          }
         const id = req.params.id;
-        model.putDados(endereco, id, (result)=>{
+        model.putDados(mensagem, id, (result)=>{
             if(result){
-                res.send(endereco);
+                res.send(mensagem);
             }
             else{
                 throw Error;
@@ -81,4 +77,4 @@ class EnderecoController{
     }
     
 }
-module.exports = EnderecoController
+module.exports = MessageController

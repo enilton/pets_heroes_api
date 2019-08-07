@@ -41,7 +41,6 @@ class UserController{
            wtsp: req.body.wtsp
 
         }
-        console.log(req.file.filename);
         model.setDados(usuario,(result)=>{
             if(result){
                 res.send(usuario);
