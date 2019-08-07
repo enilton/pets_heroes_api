@@ -1,8 +1,8 @@
-const Model = require("../model/end-model");
+const Model = require("../model/event-model");
 const model = new Model();
 
 
-class EnderecoController{
+class EventController{
     get(req, res){
         model.getAll((result)=>{
             if(result.length == 0){
@@ -28,17 +28,16 @@ class EnderecoController{
         })
     }
     post(req, res){
-        const endereco = {
+        const event = {
            id_usuario: req.body.id_usuario,
-           rua: req.body.rua,
-           num: req.body.num,
-           bairro: req.body.bairro,
-           cidade: req.body.cidade,
-           estado: req.body.estado
+           id_endereco: req.body.id_endereco,
+           titulo: req.body.titulo,
+           descricao: req.body.descricao,
+           imagem: req.file.filename
         }
-        model.setDados(endereco,(result)=>{
+        model.setDados(event,(result)=>{
             if(result){
-                res.send(endereco);
+                res.send(event);
             }
             else{
                 throw Error;
@@ -48,18 +47,17 @@ class EnderecoController{
     }
     
     put(req, res){
-        const endereco = {
-            id_usuario: req.body.id_usuario,
-           rua: req.body.rua,
-           num: req.body.num,
-           bairro: req.body.bairro,
-           cidade: req.body.cidade,
-           estado: req.body.estado
+        const event = {
+           id_usuario: req.body.id_usuario,
+           id_endereco: req.body.id_endereco,
+           titulo: req.body.titulo,
+           descricao: req.body.descricao,
+           imagem: req.file.filename
          }
         const id = req.params.id;
-        model.putDados(endereco, id, (result)=>{
+        model.putDados(event, id, (result)=>{
             if(result){
-                res.send(endereco);
+                res.send(event);
             }
             else{
                 throw Error;
@@ -81,4 +79,4 @@ class EnderecoController{
     }
     
 }
-module.exports = EnderecoController
+module.exports = EventController

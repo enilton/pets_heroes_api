@@ -49,7 +49,6 @@ class PetController{
             status: req.body.status,
         }
         const fotos = req.files;
-        console.log(req.files);
         model.setDados(pet,(result)=>{
             if(result){
                 const id = result;
