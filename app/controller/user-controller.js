@@ -5,25 +5,26 @@ const model = new Model();
 class UserController{
     get(req, res){
         model.getAll((result)=>{
-            if(result.length == 0){
+            if(result == 0){
                 res.send("Não há resultados para esta consulta")
             }
             else{
                 //console.log(result);
-                res.send(result);
+                res.status(200).json(result);
             }
         })
     }
     
     getone(req, res){
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
 
         model.getOne(id,(result)=>{
-            if(result.length == 0){
+            if(result.rowCount == 0){
                 res.send("Não há resultados para esta consulta")
             }
             else{
-                res.send(result);
+                //console.log(result);
+                res.status(200).json(result.rows);
             }
         })
     }
@@ -43,15 +44,13 @@ class UserController{
         }
         model.setDados(usuario,(result)=>{
             if(result){
-                res.send(usuario);
+                res.status(200).send(usuario);
             }
             else{
                 throw Error;
             }
-            
         });
     }
-    
     put(req, res){
         const usuario = {
             email: req.body.email,
@@ -65,10 +64,10 @@ class UserController{
             instg: req.body.instg,
             wtsp: req.body.wtsp
          }
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         model.putDados(usuario, id, (result)=>{
             if(result){
-                res.send(usuario);
+                res.status(200).send(usuario);
             }
             else{
                 throw Error;
@@ -78,10 +77,10 @@ class UserController{
     
     
     delete(req, res){
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         model.delete(id, (result)=>{
             if(result){
-                res.send(result);
+                res.status(200).send(result);
             }
             else{
                 throw Error;
@@ -92,11 +91,11 @@ class UserController{
             const email = req.body.email;
             const senha = req.body.senha;
         model.validaEmail(email, (result)=>{
-            if(result.length == 0){
+            if(result.rowCount == 0){
                 res.status(404).send({ error: 'email não cadastrado' });
             }
             else{
-                if(result[0].senha != senha){
+                if(result.rows[0].senha != senha){
                     res.status(401).send({ error: 'Senha inválida' });
                 }
                 else{

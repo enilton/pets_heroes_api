@@ -12,7 +12,7 @@ class Model{
         })
     }
     getOne(id, callback){
-        connect.query('SELECT * FROM pet WHERE id_pet = ?', id, (err, rows) => {
+        connect.query('SELECT * FROM pet WHERE id_pet = $1', [id], (err, rows) => {
             if (err) {
                 console.log(err)
                 return callback(err);
@@ -25,7 +25,7 @@ class Model{
     }
     
     setDados(dados, callback){
-        connect.query('INSERT INTO pet set?', dados, (err, result) => {
+        connect.query('INSERT INTO pet set $1', [dados], (err, result) => {
             if (err) {
                 console.log(err);
                 return callback(false);
@@ -37,7 +37,7 @@ class Model{
         })
     }
     setImagens(img, callback){
-        connect.query('INSERT INTO img_pets set?', img, (err, sucess) => {
+        connect.query('INSERT INTO img_pets set $1', [img], (err, sucess) => {
             if (err) {
                 console.log(err);
                 return callback(false);
@@ -49,7 +49,7 @@ class Model{
         });
     }
     getImages(id, callback){
-        connect.query('SELECT * FROM img_pets WHERE id_pet = ?', id, (err, rows) => {
+        connect.query('SELECT * FROM img_pets WHERE id_pet = $1', [id], (err, rows) => {
             if (err) {
                 console.log(err)
                 return callback(err);
@@ -61,7 +61,7 @@ class Model{
         });
     }
     putDados(dados, id, callback){
-        connect.query('UPDATE pet set ? WHERE id_pet = ?',[dados, id], (err) => {
+        connect.query('UPDATE pet set $1 WHERE id_pet = $2',[dados, id], (err) => {
             if (err) {
                 console.log(err);
                 return callback(false);
@@ -74,7 +74,7 @@ class Model{
     }
     
     delete(id, callback){
-        connect.query('DELETE FROM pet WHERE id_pet = ?', id, (err) => {
+        connect.query('DELETE FROM pet WHERE id_pet = $1', [id], (err) => {
             if (err) {
                 console.log(err);
                 return callback(false);

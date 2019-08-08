@@ -14,16 +14,15 @@ conexao.connect((err)=>{
 
 
 module.exports = conexao*/
-const pg = require('pg');
-const connectionString = process.env.DATABASE_URL || 'postgres://postgres:petsheroes@localhost:5432/petsheroes';
+const pgp = require('pg-promise')({});
+const db = pgp('postgres://postgres:petsheroes@localhost:5432/petsheroes');
 
-const client = new pg.Client(connectionString);
-client.connect((err)=>{
-    if(err){
-        console.log(err);
-    }
-    else{
-        console.log("conectado");
-    }
-});
-module.exports = client
+db.connect()
+.then(obj=>{
+    console.log("conectado");
+})
+.catch(error =>{
+    console.log(error);
+})
+
+module.exports = db
