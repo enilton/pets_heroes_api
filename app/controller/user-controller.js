@@ -10,7 +10,7 @@ class UserController{
             }
             else{
                 //console.log(result);
-                res.status(200).json(result);
+                res.status(200).send(result);
             }
         })
     }
@@ -19,12 +19,12 @@ class UserController{
         const id = parseInt(req.params.id);
 
         model.getOne(id,(result)=>{
-            if(result.rowCount == 0){
+            if(result.length == 0){
                 res.send("Não há resultados para esta consulta")
             }
             else{
                 //console.log(result);
-                res.status(200).json(result.rows);
+                res.status(200).send(result);
             }
         })
     }

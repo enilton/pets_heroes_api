@@ -11,15 +11,12 @@ class Model{
         })
     }
     getOne(id, callback){
-        connect.query('SELECT * FROM usuario WHERE id_usuario = $1', [id], (err, rows) => {
-            if (err) {
-                console.log(err)
-                return callback(err);
-            }
-            else {
-                console.log("Sucesso!");
-                return callback(rows);
-            }
+        connect.query('SELECT * FROM usuario WHERE id_usuario = $1', [id])
+        .then(obj=>{
+            return callback(obj);
+        })
+        .catch(error =>{
+            return callback(error);
         })
     }
     
