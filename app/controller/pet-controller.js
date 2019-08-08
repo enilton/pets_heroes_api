@@ -5,36 +5,35 @@ const model = new Model();
 class PetController{
     get(req, res){
         model.getAll((result)=>{
-            console.log(result.rows);
             if(result.rowCount == 0){
                 res.send("Não há resultados para esta consulta")
             }
             else{
                 //console.log(result);
-                res.send(result);
+                res.status(200).json(result.rows);
             }
         })
     }
     
     getone(req, res){
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         model.getOne(id,(result)=>{
-            if(result.length == 0){
+            if(result.rowCount == 0){
                 res.send("Não há resultados para esta consulta")
             }
             else{
-                res.send(result);
+                res.status(200).json(result.rows);
             }
         })
     }
     getimages(req,res){
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         model.getImages(id, (result)=>{
             if(result.length == 0){
                 res.send("Não há resultados para esta consulta")
             }
             else{
-                res.send(result);
+                res.status(200).send(result);
             }
         });
     }
@@ -64,7 +63,7 @@ class PetController{
                         }
                     });
                 }
-                res.send(pet);
+                res.status(200).send(pet);
             }
             else{
                 throw Error;
@@ -84,10 +83,10 @@ class PetController{
             descricao: req.body.descricao,
             status: req.body.status,
         }
-        const id_pet = req.params.id;
+        const id = parseInt(req.params.id);
         model.putDados(pet, id_pet, (result)=>{
             if(result){
-                res.send(pet);
+                res.status(200).send(pet);
             }
             else{
                 throw Error;
@@ -97,10 +96,10 @@ class PetController{
     
     
     delete(req, res){
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
         model.delete(id, (result)=>{
             if(result){
-                res.send(result);
+                res.status(200).send(result);
             }
             else{
                 throw Error;
