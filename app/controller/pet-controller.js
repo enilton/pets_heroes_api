@@ -73,7 +73,9 @@ class PetController{
     }
     
     put(req, res){
+        const id = parseInt(req.params.id);
         const pet = {
+            id_pet: id,
             id_usuario: req.body.usuario,
             id_endereco: req.body.endereco,
             nome_pet: req.body.nome,

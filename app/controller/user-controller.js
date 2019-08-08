@@ -52,6 +52,7 @@ class UserController{
         });
     }
     put(req, res){
+        const id = parseInt(req.params.id);
         const usuario = {
             email: req.body.email,
             senha: req.body.senha,
@@ -64,7 +65,7 @@ class UserController{
             instg: req.body.instg,
             wtsp: req.body.wtsp
          }
-        const id = parseInt(req.params.id);
+        
         model.putDados(usuario, id, (result)=>{
             if(result){
                 res.status(200).send(usuario);
@@ -91,11 +92,11 @@ class UserController{
             const email = req.body.email;
             const senha = req.body.senha;
         model.validaEmail(email, (result)=>{
-            if(result.rowCount == 0){
+            if(result == 0){
                 res.status(404).send({ error: 'email não cadastrado' });
             }
             else{
-                if(result.rows[0].senha != senha){
+                if(result[0].senha != senha){
                     res.status(401).send({ error: 'Senha inválida' });
                 }
                 else{
