@@ -2,88 +2,69 @@ const connect = require("../../config/connect");
 
 class Model{
     getAll(callback){
-        connect.query('SELECT * FROM pet', function(err, rows){
-            if (err) {
-                console.log(err);
-                return callback(err);
-            }
-            console.log("Sucesso!");
-            return callback(rows);
+        connect.query('SELECT * FROM pet')
+        .then(obj=>{
+            return callback(obj);
+        })
+        .catch(error =>{
+            return callback(error);
         })
     }
     getOne(id, callback){
-        connect.query('SELECT * FROM pet WHERE id_pet = $1', [id], (err, rows) => {
-            if (err) {
-                console.log(err)
-                return callback(err);
-            }
-            else {
-                console.log("Sucesso!");
-                return callback(rows);
-            }
+        connect.query('SELECT * FROM pet WHERE id_pet = $1', [id])
+        .then(obj=>{
+            return callback(obj);
+        })
+        .catch(error =>{
+            return callback(error);
         })
     }
     
     setDados(dados, callback){
-        connect.query('INSERT INTO pet set $1', [dados], (err, result) => {
-            if (err) {
-                console.log(err);
-                return callback(false);
-            }
-            else {
-                console.log(result.insertId);
-                return callback(result.insertId);
-            }
+        connect.one('INSERT INTO pet (${this:name}) VALUES(${this:csv}) RETURNING id_pet', dados)
+        .then(data => {
+            return callback(data.id_pet);
         })
+        .catch(error => {
+            return callback(false);
+        });
     }
     setImagens(img, callback){
-        connect.query('INSERT INTO img_pets set $1', [img], (err, sucess) => {
-            if (err) {
-                console.log(err);
-                return callback(false);
-            }
-            else {
-                console.log("insert success");
-                return callback(true);
-            }
+        connect.query('INSERT INTO img_pets (${this:name}) VALUES(${this:csv})', img)
+        .then(data => {
+            return callback(true);
+        })
+        .catch(error => {
+            return callback(false);
         });
     }
     getImages(id, callback){
-        connect.query('SELECT * FROM img_pets WHERE id_pet = $1', [id], (err, rows) => {
-            if (err) {
-                console.log(err)
-                return callback(err);
-            }
-            else {
-                console.log("Sucesso!");
-                return callback(rows);
-            }
-        });
+        connect.query('SELECT * FROM img_pets WHERE id_pet = $1', [id])
+        .then(obj=>{
+            return callback(obj);
+        })
+        .catch(error =>{
+            return callback(error);
+        })
     }
     putDados(dados, id, callback){
-        connect.query('UPDATE pet set $1 WHERE id_pet = $2',[dados, id], (err) => {
-            if (err) {
-                console.log(err);
-                return callback(false);
-            }
-            else {
-                console.log("update success");
-                return callback(true);
-            }
+        connect.query('UPDATE pet SET (${dados:name}) = (${dados:csv}) WHERE id_pet = ${id}', {id, dados})
+        .then(data => {
+            return callback(true);
         })
+        .catch(error => {
+            return callback(false);
+        });
     }
     
     delete(id, callback){
-        connect.query('DELETE FROM pet WHERE id_pet = $1', [id], (err) => {
-            if (err) {
-                console.log(err);
-                return callback(false);
-            }
-            else {
-                console.log("delete success");
-                return callback(true);
-            }
+        connect.query('DELETE FROM pet WHERE id_pet = $1', [id])
+        .then(data => {
+            return callback(true);
         })
+        .catch(error => {
+            return callback(false);
+        });
     }
 }
 
