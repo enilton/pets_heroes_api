@@ -15,7 +15,7 @@ conexao.connect((err)=>{
 
 module.exports = conexao*/
 const pgp = require('pg-promise')({});
-const db = pgp('postgres://postgres:petsheroes@localhost:5432/petsheroes');
+const db = pgp(process.env.DATABASE_URL ||'postgres://postgres:petsheroes@localhost:5432/petsheroes');
 
 db.connect()
 .then(obj=>{
