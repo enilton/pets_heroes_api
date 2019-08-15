@@ -5,7 +5,7 @@ const model = new Model();
 class UserController{
     get(req, res){
         model.getAll((result)=>{
-            if(result == 0){
+            if(result.length == 0){
                 res.send("Não há resultados para esta consulta")
             }
             else{
@@ -17,7 +17,6 @@ class UserController{
     
     getone(req, res){
         const id = parseInt(req.params.id);
-
         model.getOne(id,(result)=>{
             if(result.length == 0){
                 res.send("Não há resultados para esta consulta")
@@ -30,17 +29,13 @@ class UserController{
     }
     post(req, res){
         const usuario = {
+           firstName: req.body.firstname,
+           lastName: req.body.lastname,
            email: req.body.email,
-           senha: req.body.senha,
-           nome: req.body.nome,
-           telefone: req.body.telefone,
-           imagem: req.file.filename,
-           status: "P",
-           tipo: req.body.tipo,
-           fb: req.body.fb,
-           instg: req.body.instg,
-           wtsp: req.body.wtsp
-
+           password: req.body.password,
+           phone: req.body.phone, 
+           img: req.file.filename,
+           type: req.body.type
         }
         model.setDados(usuario,(result)=>{
             if(result){
@@ -54,16 +49,13 @@ class UserController{
     put(req, res){
         const id = parseInt(req.params.id);
         const usuario = {
-            email: req.body.email,
-            senha: req.body.senha,
-            nome: req.body.nome,
-            telefone: req.body.telefone,
-            imagem: req.file.filename,
-            status: "P",
-            tipo: req.body.tipo,
-            fb: req.body.fb,
-            instg: req.body.instg,
-            wtsp: req.body.wtsp
+           firstName: req.body.firstname,
+           lastName: req.body.lastname,
+           email: req.body.email,
+           password: req.body.password,
+           phone: req.body.phone, 
+           img: req.file.filename,
+           type: req.body.type
          }
         
         model.putDados(usuario, id, (result)=>{
@@ -90,13 +82,13 @@ class UserController{
     }
     login(req,res){
             const email = req.body.email;
-            const senha = req.body.senha;
+            const senha = req.body.password;
         model.validaEmail(email, (result)=>{
             if(result == 0){
                 res.status(404).send({ error: 'email não cadastrado' });
             }
             else{
-                if(result[0].senha != senha){
+                if(result[0].password != senha){
                     res.status(401).send({ error: 'Senha inválida' });
                 }
                 else{

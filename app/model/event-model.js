@@ -2,65 +2,52 @@ const connect = require("../../config/connect");
 
 class Model{
     getAll(callback){
-        connect.query('SELECT * FROM evento', function(err, rows){
-            if (err) {
-                console.log(err);
-                return callback(err);
-            }
-            console.log("Sucesso!");
-            return callback(rows);
+        connect.query('SELECT * FROM evento')
+        .then(obj=>{
+            return callback(obj);
+        })
+        .catch(error =>{
+            return callback(error);
         })
     }
     getOne(id, callback){
-        connect.query('SELECT * FROM evento WHERE id_evento = ?', id, (err, rows) => {
-            if (err) {
-                console.log(err)
-                return callback(err);
-            }
-            else {
-                console.log("Sucesso!");
-                return callback(rows);
-            }
+        connect.query('SELECT * FROM evento WHERE id_evento = $1', id)
+        .then(obj=>{
+            return callback(obj);
+        })
+        .catch(error =>{
+            return callback(error);
         })
     }
     
     setDados(dados, callback){
-        connect.query('INSERT INTO evento set?', dados, (err, sucess) => {
-            if (err) {
-                console.log(err);
-                return callback(false);
-            }
-            else {
-                console.log("insert success");
-                return callback(true);
-            }
+        connect.query('INSERT INTO evento (${this:name}) VALUES(${this:csv})', dados)
+        .then(data => {
+            return callback(true);
         })
+        .catch(error => {
+            return callback(false);
+        });
     }
     
     putDados(dados, id, callback){
-        connect.query('UPDATE evento set ? WHERE id_evento = ?',[dados, id], (err) => {
-            if (err) {
-                console.log(err);
-                return callback(false);
-            }
-            else {
-                console.log("update success");
-                return callback(true);
-            }
+        connect.query('UPDATE evento SET (${dados:name}) = (${dados:csv}) WHERE id_evento = ${id}', {id, dados})
+        .then(data => {
+            return callback(true);
         })
+        .catch(error => {
+            return callback(false);
+        });
     }
     
     delete(id, callback){
-        connect.query('DELETE FROM evento WHERE id_evento = ?', id, (err) => {
-            if (err) {
-                console.log(err);
-                return callback(false);
-            }
-            else {
-                console.log("delete success");
-                return callback(true);
-            }
+        connect.query('DELETE FROM evento WHERE id_evento = $1', id)
+        .then(data => {
+            return callback(true);
         })
+        .catch(error => {
+            return callback(false);
+        });
     }
 }
 

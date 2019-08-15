@@ -1,61 +1,72 @@
-const connect = require("../../config/connect");
+const models = require('../../models/index');
 
 class Model{
     getAll(callback){
-        connect.query('SELECT * FROM usuario')
-        .then(obj=>{
-            return callback(obj);
+        models.user
+        .findAll({})
+        .then(data =>{
+            return callback(data);
         })
-        .catch(error =>{
-            return callback(error);
-        })
+        .catch(err =>{
+            return callback(err);
+        });
     }
     getOne(id, callback){
-        connect.query('SELECT * FROM usuario WHERE id_usuario = $1', [id])
-        .then(obj=>{
-            return callback(obj);
-        })
-        .catch(error =>{
-            return callback(error);
-        })
+    models.user
+    .findByPk(id)
+    .then(data =>{
+        return callback(data);
+    })
+    .catch(err =>{
+        return callback(err);
+    });
     }
     
     setDados(dados, callback){
-        connect.query('INSERT INTO usuario(${this:name}) VALUES(${this:csv})', dados)
-        .then(data => {
-            return callback(true);
-        })
-        .catch(error => {
-            return callback(false);
-        });
+    models.user
+    .create(dados)
+    .then(data =>{
+        return callback(data);
+    })
+    .catch(err =>{
+        return callback(err);
+    });
     }
+
     putDados(dados, id, callback){
-        connect.query('UPDATE usuario SET (${dados:name}) = (${dados:csv}) WHERE id_usuario = ${id}', {id, dados})
-        .then(data => {
-            return callback(true);
-        })
-        .catch(error => {
-            return callback(false);
-        });
+    models.user
+    .findByPk(id)
+    .then(data =>{
+        data.update(dados)
+        return callback(data);
+    })
+    .catch(err =>{
+        return callback(err);
+    });
     }
     
     delete(id, callback){
-        connect.query('DELETE FROM usuario WHERE id_usuario = $1', [id])
-        .then(data => {
-            return callback(true);
+        models.user
+        .findByPk(id)
+        .then(data =>{
+            data.destroy();
+            return callback(data);
         })
-        .catch(error => {
-            return callback(false);
+        .catch(err =>{
+            return callback(err);
         });
     }
     validaEmail(email, callback){
-        connect.query('SELECT * FROM usuario WHERE email = $1', email)
-        .then(data => {
-            return callback(data);
-        })
-        .catch(error => {
-            return callback(error);
-        });
+    models.user
+    .findAll({
+        where: {email: email}      
+    })
+    .then(data =>{
+        return callback(data);
+    })
+    .catch(err =>{
+        return callback(err);
+    });
     }
 }
 

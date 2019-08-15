@@ -16,8 +16,8 @@ const upload = multer({ storage : storage });
 
 user.get('/', controller.get);
 user.get('/:id', controller.getone);
-user.post('/', upload.single('imagem'), controller.post);
-user.put('/:id', upload.single('imagem'), controller.put);
+user.post('/', upload.single('img'), controller.post);
+user.put('/:id', upload.single('img'), controller.put);
 user.post('/login', controller.login )
 user.delete('/:id', controller.delete);
 

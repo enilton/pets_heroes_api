@@ -2,65 +2,52 @@ const connect = require("../../config/connect");
 
 class Model{
     getAll(callback){
-        connect.query('SELECT * FROM mensagens', function(err, rows){
-            if (err) {
-                console.log(err);
-                return callback(err);
-            }
-            console.log("Sucesso!");
-            return callback(rows);
+        connect.query('SELECT * FROM mensagens')
+        .then(obj=>{
+            return callback(obj);
+        })
+        .catch(error =>{
+            return callback(error);
         })
     }
     getOne(id, callback){
-        connect.query('SELECT * FROM mensagens WHERE id_mensagem = ?', id, (err, rows) => {
-            if (err) {
-                console.log(err)
-                return callback(err);
-            }
-            else {
-                console.log("Sucesso!");
-                return callback(rows);
-            }
+        connect.query('SELECT * FROM mensagens WHERE id_mensagem = $1', id)
+        .then(obj=>{
+            return callback(obj);
+        })
+        .catch(error =>{
+            return callback(error);
         })
     }
     
     setDados(dados, callback){
-        connect.query('INSERT INTO mensagens set?', dados, (err, sucess) => {
-            if (err) {
-                console.log(err);
-                return callback(false);
-            }
-            else {
-                console.log("insert success");
-                return callback(true);
-            }
+        connect.query('INSERT INTO mensagens (${this:name}) VALUES(${this:csv})', dados)
+        .then(data => {
+            return callback(true);
         })
+        .catch(error => {
+            return callback(false);
+        });
     }
     
     putDados(dados, id, callback){
-        connect.query('UPDATE mensagens set ? WHERE id_mensagem = ?',[dados, id], (err) => {
-            if (err) {
-                console.log(err);
-                return callback(false);
-            }
-            else {
-                console.log("update success");
-                return callback(true);
-            }
+        connect.query('UPDATE mensagens SET (${dados:name}) = (${dados:csv}) WHERE id_mensagem = ${id}', {id, dados})
+        .then(data => {
+            return callback(true);
         })
+        .catch(error => {
+            return callback(false);
+        });
     }
     
     delete(id, callback){
-        connect.query('DELETE FROM mensagens WHERE id_mensagem = ?', id, (err) => {
-            if (err) {
-                console.log(err);
-                return callback(false);
-            }
-            else {
-                console.log("delete success");
-                return callback(true);
-            }
+        connect.query('DELETE FROM mensagens WHERE id_mensagem = $1', id)
+        .then(data => {
+            return callback(true);
         })
+        .catch(error => {
+            return callback(false);
+        });
     }
 }
 

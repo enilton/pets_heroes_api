@@ -5,12 +5,12 @@ const model = new Model();
 class PetController{
     get(req, res){
         model.getAll((result)=>{
-            if(result.rowCount == 0){
+            if(result == 0){
                 res.send("Não há resultados para esta consulta")
             }
             else{
                 //console.log(result);
-                res.status(200).json(result.rows);
+                res.status(200).send(result);
             }
         })
     }
@@ -18,11 +18,11 @@ class PetController{
     getone(req, res){
         const id = parseInt(req.params.id);
         model.getOne(id,(result)=>{
-            if(result.rowCount == 0){
+            if(result == 0){
                 res.send("Não há resultados para esta consulta")
             }
             else{
-                res.status(200).json(result.rows);
+                res.status(200).send(result);
             }
         })
     }
@@ -75,7 +75,6 @@ class PetController{
     put(req, res){
         const id = parseInt(req.params.id);
         const pet = {
-            id_pet: id,
             id_usuario: req.body.usuario,
             id_endereco: req.body.endereco,
             nome_pet: req.body.nome,
@@ -85,8 +84,7 @@ class PetController{
             descricao: req.body.descricao,
             status: req.body.status,
         }
-        const id = parseInt(req.params.id);
-        model.putDados(pet, id_pet, (result)=>{
+        model.putDados(pet, id, (result)=>{
             if(result){
                 res.status(200).send(pet);
             }
